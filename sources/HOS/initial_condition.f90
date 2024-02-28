@@ -469,6 +469,9 @@ IF (random_phases.EQ.0) THEN ! Random numbers are the same at every run for a gi
 ELSEIF (random_phases.EQ.1) THEN ! Random numbers are different at every run
     CALL init_random_seed()
     CALL RANDOM_NUMBER(rnd)
+ELSEIF (random_phases.GT.1) THEN ! Random numbers are the same at every run, but the values depend on the choice of random_phases=2,3,...
+    CALL init_pseudo_random_seed(random_phases)
+    CALL RANDOM_NUMBER(rnd)
 ELSE
     PRINT*, 'Random number generation undefined'
     STOP

@@ -108,6 +108,29 @@ CALL random_seed(put=seed)
 !
 END SUBROUTINE init_not_random_seed
 !
+SUBROUTINE init_pseudo_random_seed(random_phases)
+! Creates pseudo-random seeds based on a given base seed, which is the value of random_phases.
+! Useful for having repeatable simulations with different sets of random phases
+! (init_not_random_seed always gives the same set),
+IMPLICIT NONE
+INTEGER, INTENT(in) :: random_phases
+INTEGER(int64) :: s
+INTEGER :: i, n
+INTEGER, ALLOCATABLE :: seed(:)
+INTEGER(int64) :: t
+!
+CALL random_seed(size = n)
+ALLOCATE(seed(n))
+s = random_phases
+DO i=1,n
+    seed(i)=lcg(s)
+ENDDO
+print*,'n',n
+!
+CALL random_seed(put=seed)
+!
+END SUBROUTINE init_pseudo_random_seed
+!
 !
 !
 END MODULE random_numbers
