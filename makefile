@@ -3,9 +3,9 @@ LOCDIR =.
 SRCDIR  = $(LOCDIR)/sources/HOS/
 SRCDIR2 = $(LOCDIR)/sources/utilities/
 OBJDIR  = $(LOCDIR)/obj/
-LIBDIR  = /usr/local/lib/
+LIBDIR  = /usr/lib/
 BINDIR  = $(LOCDIR)/bin/
-LINKLIB = $(LIBDIR)libfftw3.a $(LIBDIR)liblapack.a $(LIBDIR)librefblas.a
+LINKLIB = -lfftw3 -llapack -lblas
 ## ifort compiler
 #FC=ifort
 ##
@@ -17,7 +17,7 @@ LINKLIB = $(LIBDIR)libfftw3.a $(LIBDIR)liblapack.a $(LIBDIR)librefblas.a
 # gfortran compiler (optimized for Mac Pro with intel corei7: avx not working on Mac)
 FC=gfortran
 #
-OPTFLAGS= -O3 -march=corei7 -msse2 -funroll-loops -fno-protect-parens -ffast-math
+OPTFLAGS= -O3 -march=native -funroll-loops -fno-protect-parens -ffast-math
 DBFLAGS = -O0 -Wline-truncation -fpack-derived -finit-integer=inf -finit-real=nan -fbacktrace -ffpe-trap=zero,overflow -ffpe-summary=all -fimplicit-none -fcheck=all -Wall -Wtabs -Wextra -Wunderflow  -Wno-zerotrip
 FLAGMOD1= -J $(OBJDIR) #Flag for writing modules in $(OBJ)
 FLAGMOD2= -I $(OBJDIR) #Flag for reading modules in $(OBJ)
